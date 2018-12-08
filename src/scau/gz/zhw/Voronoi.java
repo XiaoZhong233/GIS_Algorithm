@@ -377,7 +377,7 @@ public class Voronoi {
 	
 	public static void main(String[] args) {
 
-		int len = 10;
+		int len = 1000;
 		Point[] points = new Point[len]; 
 		//随机生成数据
 		//圆形区域
@@ -412,6 +412,7 @@ public class Voronoi {
 		List<Polygon> voronoisPolygon = voronoi.getVoronois();
 		System.out.println(voronoisPolygon.size());
 		System.out.println(voronoi.getOutsideCircle().size());
-		PaintVector.createAndShowGUI(Arrays.asList(voronoi.getPoints()), null, voronoi.getVoronois());
+		//PaintVector.createAndShowGUIDrawDelauary(delaunay);
+		//PaintVector.createAndShowGUI(Arrays.asList(voronoi.getPoints()), null, voronoi.getVoronois());
 	}
 }

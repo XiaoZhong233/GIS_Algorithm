@@ -271,13 +271,12 @@ public class Raster{
 			
 			double x0=size+xOffset+this.xOffset;//栅格起始点坐标
 			double y0=ROW+yOffset+this.yOffset;
-			//把坐标原点从栅格左下角移到中心
-			// point =  BasicTransform.transform(point, ROW/2, COLUMN/2);
+			
 			
 			int[] rowAndColumn = new int[2];
 			//像元大小默认为1
-			rowAndColumn[0] = (int) (1+ (Math.floor(y0-point.getY()/size)));
-			rowAndColumn[1] = (int)(1+(Math.floor(point.getX()-x0)/size));
+			rowAndColumn[0] = (int) (1+ (Math.floor(Math.abs((y0-point.getY())/size))));
+			rowAndColumn[1] = (int)(1+(Math.floor(Math.abs((point.getX()-x0))/size)));
 			return rowAndColumn;
 		}
 		
@@ -548,7 +547,7 @@ public class Raster{
 		//矢量化多边形(边际代数法)
 		public void RasterPolygon2(Polygon polygon) {
 			List<Line> lines = polygon.getLines();
-			RasterLine(polygon, 1);
+			//RasterLine(polygon, 1);
 			
 			for(Line line : lines) {
 				Point start = line.getStart();
@@ -1158,7 +1157,8 @@ public class Raster{
 		
 		public static void main(String[] args) {
 			Raster raster = new Raster(30,30);
-			Point p = new Point(5, 5);
+			Point p = new Point(.5, .5);
+			System.out.println(p);
 			int[] a = raster.transformRasterPoint(p, 0, 0);
 			System.out.println(String.format("I=%d,J=%d", a[0],a[1]));
 			
@@ -1198,6 +1198,9 @@ public class Raster{
 			//List<Point> pList = drawCircle.draw();
 			//polygon = new Polygon(pList, true);
 			raster.RasterPolygon1(polygon,1,1);
+			//raster.RasterPolygon2(polygon);
+			//Line line = new Line(o,q);
+			//raster.RasterLine(line, 1);
 			
 			
 			//渲染器
@@ -1343,7 +1346,7 @@ public class Raster{
 					for(int i=0;i<raster.getROW();i++) {
 					for(int j=0;j<raster.getCOLUMN();j++) {
 						//renderData[i][j]=Integer.toString((int)raster.getData()[i][j].getValue());
-						if(raster.getData()[i][j].getValue()==2 ||raster.getData()[i][j].getValue()==3)
+						if(raster.getData()[i][j].getValue()!=0)
 							renderData[i][j]=Integer.toString((int)raster.getData()[i][j].getValue());
 							else
 								renderData[i][j]=" ";
@@ -1365,10 +1368,10 @@ public class Raster{
 			};
 			
 			
+			//raster.render(valueRender);
 			
-			
-			
-			
+			polygon.showGUI();
+			raster.render(valueRender);
 			
 			
 			System.out.println("基于距离变换提取骨架图算法:");
