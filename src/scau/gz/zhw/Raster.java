@@ -1370,8 +1370,8 @@ public class Raster{
 			
 			//raster.render(valueRender);
 			
-			polygon.showGUI();
-			raster.render(valueRender);
+			//polygon.showGUI();
+			//raster.render(valueRender);
 			
 			
 			System.out.println("基于距离变换提取骨架图算法:");
